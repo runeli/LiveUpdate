@@ -1,7 +1,13 @@
 body {
   padding-top: 50px;
 }
-.starter-template {
-  padding: 40px 15px;
-  text-align: center;
+
+.shadow-box{
+  width: 100%;
+  box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.1);
+  border-radius: 19px;
+  padding:15px;
 }
+.shadow-box img {
+  width: 100%;
+} 

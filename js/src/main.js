@@ -2,6 +2,7 @@ var DataExample = require('./dataExample.js');
 var Batch = require('./batch.js');
 var ChartLoader = require('./chartLoader.js');
 
+
 var data = new DataExample(5);
 var batch = new Batch(data.getData());
 

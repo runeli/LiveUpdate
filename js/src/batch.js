@@ -8,6 +8,7 @@ class Batch {
 		this._dataStore = data; //typeof DataEntry
 		this.createdOn = new Date();
 		this.addUntilNextDuration();
+		this.batchDuration = this._batchDuration();
 	}
 	addUntilNextDuration(){
 		this._dataStore.forEach((dataPoint, index) => {
@@ -15,6 +16,16 @@ class Batch {
 				dataPoint.untilNext = Math.abs(this._dataStore[index + 1].timeStamp - dataPoint.timeStamp);
 			}
 		}, this);
+	}
+	
+	_batchDuration(){
+		return this._dataStore.reduce((prev, curr) => {
+			if(curr.untilNext) {
+				return prev + curr.untilNext;
+			} else {
+				return prev + 0;
+			}
+		}, 0);
 	}
 	
 	next(){

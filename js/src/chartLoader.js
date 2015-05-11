@@ -3,10 +3,12 @@
  */
 var DataExample = require('./dataExample.js');
 var Batch = require('./batch.js');
- 
+var Progressbar = require('./progress-bar.js');
+
 class ChartLoader {
 	constructor(batch) {
-    
+    this.progressbar = new Progressbar($('.progress-bar'));
+    this.cumulativeDuration = 0;
     this._constructChart();
   }
 
@@ -32,13 +34,22 @@ class ChartLoader {
   }
   
   addData(data){
-    console.log('Adding:', data);
+    this.cumulativeDuration = this.cumulativeDuration + data.untilNext;
     // Add two random numbers for each dataset
     this.chart.addData([data.value], ++this.latestLabel);
     // Remove the first point so we dont just add values forever
     this.chart.removeData();
+    this.updateProgresbar();
   }
   
+  updateProgresbar(){
+    this.progressbar.update((this.cumulativeDuration / this.batch.batchDuration) * 100 );
+  }
+  
+  resetProgressbar(){
+    this.cumulativeDuration = 0;
+    this.updateProgresbar();
+  }
   
   beginUpdate(){
     var nextDataPoint = this.batch.next();
@@ -57,6 +68,7 @@ class ChartLoader {
   insertBatch(batch){
     this.batch = batch;
     this.latestLabel = 0;
+    this.resetProgressbar();
     this.beginUpdate();
   }
   
@@ -64,7 +76,7 @@ class ChartLoader {
 	batchFinished(){
     console.log('batch finished, loading a new one');
     this.endUpdate();
-    var data = new DataExample(10);
+    var data = new DataExample(100);
     var batch = new Batch(data.getData());
 		this.insertBatch(batch);
 	}
