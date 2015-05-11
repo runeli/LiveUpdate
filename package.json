@@ -1,0 +1,17 @@
+{
+  "name": "LiveDataTransfer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "= <=> (=)",
+  "license": "ISC",
+  "devDependencies": {
+    "babelify": "^6.0.2",
+    "browserify": "^10.1.3",
+    "gulp": "^3.8.11",
+    "watchify": "^3.2.1"
+  }
+}
